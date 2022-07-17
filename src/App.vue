@@ -20,5 +20,10 @@ import AppFooter from './components/appFooter.vue'
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 90%;
+    background-size: cover;
+    background-image: url('./assets/background.jpg');
 }
 </style>
