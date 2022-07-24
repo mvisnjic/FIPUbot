@@ -5,6 +5,7 @@ import UserChatTextBox from './UserChatTextBox.vue'
 
 <template>
     <div
+        ref="chatbot"
         class="lg:h-[600px] lg:w-[600px] md:mx-auto md:w-[500px] min-w-[280px] h-[500px] mx-2 border rounded-xl bg-opacity-95 bg-[#6ECFF6] overflow-auto"
     >
         <div class="p-4 flex justify-between border-b border-slate-300">
@@ -67,41 +68,51 @@ import UserChatTextBox from './UserChatTextBox.vue'
                     <div>
                         <button
                             class="hover:font-bold mb-2 lg:bg-slate-300 lg:rounded-full lg:p-1 lg:place-self-center"
-                            @click="closeMenu"
+                            @click="closeMenu() + clearChat()"
                         >
                             Clear chat
                         </button>
                     </div>
                     <div>
                         <button
-                            @click="closeMenu"
+                            @click="closeMenu() + testBOT()"
                             class="hover:font-bold lg:bg-slate-300 lg:rounded-full lg:p-1 lg:place-self-center"
                         >
-                            Restart FIPUbot
+                            Test BOT
                         </button>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- <div class="text-xl p-6 text-left overflow-y-auto">
-            Bok ja sam FIPUbot! Tu sam ukoliko imaš pitanja u vezi fakulteta.
-        </div> -->
         <div class="flex justify-start">
-            <BotChatTextBox />
+            <BotChatTextBox :message="welcomeMsg" />
         </div>
-        <div class="flex justify-end">
-            <UserChatTextBox />
+        <div v-for="(message, i) of messages" :key="i">
+            <div class="flex justify-start">
+                <BotChatTextBox
+                    :message="message.msg"
+                    v-if="message.author === 'server'"
+                />
+            </div>
+            <div class="flex justify-end">
+                <UserChatTextBox
+                    :message="message.msg"
+                    v-if="message.author === 'client'"
+                />
+            </div>
         </div>
         <div class="flex space-x-4 justify-center mb-6">
             <textarea
+                v-model="message"
                 name="message"
+                @keyup.enter="sendMessage"
                 id="message"
                 required
                 minlength="5"
                 placeholder="Message..."
                 class="md: w-3/4 rounded-xl resize-none max-h-[50px] px-2 mt-1"
             ></textarea>
-            <button>
+            <button @click="sendMessage">
                 <img
                     src="../assets/send-btn.png"
                     alt="send-button"
@@ -114,11 +125,16 @@ import UserChatTextBox from './UserChatTextBox.vue'
 </template>
 
 <script>
+import axios from 'axios'
 export default {
     name: 'chatComponent',
     data() {
         return {
             open: false,
+            message: '',
+            welcomeMsg:
+                'Bok ja sam FIPUbot! Tu sam ukoliko imaš pitanja u vezi fakulteta.',
+            messages: [],
         }
     },
     methods: {
@@ -127,6 +143,36 @@ export default {
         },
         toggle() {
             this.open = !this.open
+        },
+        sendMessage() {
+            // function for sending a message
+            axios
+                .get(`http://127.0.0.1:5000/getanswer/${this.message}`)
+                .then((res) => {
+                    console.log(res.data)
+                    this.messages.push({
+                        msg: res.data,
+                        author: 'server',
+                    })
+                })
+            if (this.message.length <= 2) {
+                alert('Blank or too short message!')
+            } else {
+                this.messages.push({
+                    msg: this.message,
+                    author: 'client',
+                })
+            }
+
+            this.$nextTick(() => {
+                this.$refs.chatbot.scrollTop = this.$refs.chatbot.scrollHeight
+                this.message = ''
+            })
+            // console.log(this.messages)
+        },
+        clearChat() {
+            console.log(this.messages)
+            this.messages = []
         },
     },
 }

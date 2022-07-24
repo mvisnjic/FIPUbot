@@ -1,11 +1,7 @@
 <template>
     <div class="p-6 w-4/6 m-2 bg-gray-300 border break-all rounded-xl">
         <div class="text-xl text-justify">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Id, itaque
-            vero delectus voluptatum exercitationem ducimus cum tempora, fuga
-            atque aliquam, architecto tenetur doloribus voluptatem deleniti
-            autem iure impedit ea repellat. Lorem ipsum dolor sit amet
-            consectetur adipisicing elit. Id, itaque vero delectus voluptatum
+            {{ message }}
         </div>
         <div class="border-t">{{ hour }} : {{ minutes }}</div>
     </div>
@@ -14,11 +10,20 @@
 <script>
 export default {
     name: 'BotChatTextBox',
+    props: ['message'],
     data() {
         return {
             hour: new Date().getHours(),
-            minutes: new Date().getMinutes(),
+            minutes: this.checkMinutes(),
         }
+    },
+    methods: {
+        checkMinutes() {
+            let minutes = new Date().getMinutes()
+            if (minutes >= 0 && minutes <= 9) {
+                return '0' + minutes
+            } else return minutes
+        },
     },
 }
 </script>

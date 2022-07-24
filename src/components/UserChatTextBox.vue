@@ -1,11 +1,7 @@
 <template>
     <div class="p-6 w-4/6 m-2 border break-all bg-white rounded-xl">
         <div class="text-xl text-justify">
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Possimus
-            porro architecto nobis repellendus error quod. Vel at culpa
-            dignissimos laborum laboriosam voluptatem. Quasi sint autem iste
-            sequi earum reprehenderit nesciunt? Lorem ipsum dolor sit, amet
-            consectetur adipisicing elit. Possimus porro architecto nobis repel
+            {{ message }}
         </div>
         <div class="border-t">{{ hour }} : {{ minutes }}</div>
     </div>
@@ -14,11 +10,21 @@
 <script>
 export default {
     name: 'UserChatTextBox',
+    props: ['message'],
     data() {
         return {
             hour: new Date().getHours(),
-            minutes: new Date().getMinutes(),
+            minutes: this.checkMinutes(),
         }
+    },
+    methods: {
+        checkMinutes() {
+            // because new Date().getMinutes() function return single digits numbers without a zero in ahead of
+            let minutes = new Date().getMinutes()
+            if (minutes >= 0 && minutes <= 9) {
+                return '0' + minutes
+            } else return minutes
+        },
     },
 }
 </script>
