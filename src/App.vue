@@ -24,6 +24,6 @@ import AppFooter from './components/appFooter.vue'
     background-repeat: no-repeat;
     opacity: 90%;
     background-size: cover;
-    background-image: url('./assets/background.jpg');
+    background-image: url('./background.jpg');
 }
 </style>

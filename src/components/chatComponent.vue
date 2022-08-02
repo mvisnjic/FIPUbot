@@ -73,21 +73,21 @@ import UserChatTextBox from './UserChatTextBox.vue'
                             Clear chat
                         </button>
                     </div>
-                    <div>
+                    <!-- <div>
                         <button
-                            @click="closeMenu() + testBOT()"
+                            @click="closeMenu()"
                             class="hover:font-bold lg:bg-slate-300 lg:rounded-full lg:p-1 lg:place-self-center"
                         >
-                            Test BOT
+                            Reserve
                         </button>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
         <div class="flex justify-start">
             <BotChatTextBox :message="welcomeMsg" />
         </div>
-        <div v-for="(message, i) of messages" :key="i">
+        <div v-for="(message, i) of store.messages" :key="i">
             <div class="flex justify-start">
                 <BotChatTextBox
                     :message="message.msg"
@@ -126,6 +126,7 @@ import UserChatTextBox from './UserChatTextBox.vue'
 
 <script>
 import axios from 'axios'
+import { store } from '../store.js'
 export default {
     name: 'chatComponent',
     data() {
@@ -134,7 +135,6 @@ export default {
             message: '',
             welcomeMsg:
                 'Bok ja sam FIPUbot! Tu sam ukoliko imaš pitanja u vezi fakulteta.',
-            messages: [],
         }
     },
     methods: {
@@ -150,15 +150,20 @@ export default {
                 .get(`http://127.0.0.1:5000/getanswer/${this.message}`)
                 .then((res) => {
                     console.log(res.data)
-                    this.messages.push({
+                    store.messages.push({
                         msg: res.data,
                         author: 'server',
+                    })
+                    this.$nextTick(() => {
+                        this.$refs.chatbot.scrollTop =
+                            this.$refs.chatbot.scrollHeight
+                        this.message = ''
                     })
                 })
             if (this.message.length <= 2) {
                 alert('Blank or too short message!')
             } else {
-                this.messages.push({
+                store.messages.push({
                     msg: this.message,
                     author: 'client',
                 })
@@ -171,8 +176,13 @@ export default {
             // console.log(this.messages)
         },
         clearChat() {
-            console.log(this.messages)
-            this.messages = []
+            // doesn't call function if chat is already cleared.
+            // console.log(this.messages)
+            if (store.messages.length <= 0) {
+                return 0
+            } else {
+                store.messages = []
+            }
         },
     },
 }

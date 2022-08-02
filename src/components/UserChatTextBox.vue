@@ -1,6 +1,6 @@
 <template>
-    <div class="p-6 w-4/6 m-2 border break-all bg-white rounded-xl">
-        <div class="text-xl text-justify">
+    <div class="p-6 w-4/6 m-2 border bg-white rounded-xl">
+        <div class="text-l lg:text-xl text-justify break-words">
             {{ message }}
         </div>
         <div class="border-t">{{ hour }} : {{ minutes }}</div>
