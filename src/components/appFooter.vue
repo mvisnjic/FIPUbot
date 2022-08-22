@@ -1,5 +1,12 @@
 <template>
-    <div class="p-2 bg-opacity-80 bg-[#6ECFF6]">
+    <div
+        class="p-2 bg-opacity-70 bg-sky-100"
+        :class="[
+            $route.name === 'aboutPage' || $route.name === 'contactPage'
+                ? 'bg-sky-700'
+                : '',
+        ]"
+    >
         <ul class="flex justify-center lg:space-x-10">
             <li>
                 <a

@@ -1,14 +1,22 @@
 <template>
     <div
-        class="p-6 bg-opacity-80 bg-[#6ECFF6] lg:justify-center flex text-xl text-white"
+        class="w-full p-6 bg-opacity-70 bg-sky-100 lg:justify-center flex text-xl text-sky-700"
+        :class="[
+            open
+                ? 'absolute flex bg-[#0369A1] lg:bg-inherit transform origin-top-right transition duration-300 fade-in-out h-full bg-opacity-90'
+                : '',
+            $route.name === 'aboutPage' || $route.name === 'contactPage'
+                ? 'bg-sky-700 text-white'
+                : '',
+        ]"
     >
         <div class="lg:hidden flex">
             <button
-                class="px-6 py-3 rounded font-extrabold text-white"
+                class="flex items-top rounded py-3 font-extrabold text-white mb-2"
                 @click="toggle"
             >
                 <svg
-                    class="open fill-current h-5 w-5 transform transition duration-1000 ease-in-out"
+                    class="open absolute fill-[#0369A1] h-5 w-5 transform transition duration-1000 ease-in-out"
                     :class="open ? 'hidden' : 'open'"
                     viewBox="0 0 20 20"
                     xmlns="http://www.w3.org/2000/svg"
@@ -18,7 +26,7 @@
                 </svg>
 
                 <svg
-                    class="fill-current h-5 w-5 transition duration-1000 ease-in-out"
+                    class="absolute fill-current h-5 w-5 transition duration-1000 ease-in-out"
                     :class="open ? 'close' : 'hidden'"
                     height="18px"
                     version="1.1"
@@ -52,11 +60,12 @@
             </button>
         </div>
         <div
-            class="pt-[20px] lg:pt-0 lg:mb-6 text-l lg:flex lg:text-l font-semibold"
-            :class="open ? 'block ' : 'hidden'"
+            class="flex pt-[20px] lg:pt-0 lg:mb-6 text-l lg:flex lg:text-l font-semibold"
+            :class="open ? 'flex text-left pt-16 text-white ' : 'hidden'"
         >
             <div
-                class="lg:flex lg:space-x-12 fixed lg:relative lg:justify-center"
+                class="lg:flex lg:space-x-12 lg:justify-center"
+                :class="open ? 'space-y-4' : 'space-y-0'"
             >
                 <div>
                     <button @click="closeMenu">
@@ -82,7 +91,7 @@
                 <div>
                     <button @click="closeMenu">
                         <router-link to="/contact" class="hover:font-bold"
-                            >Contact me</router-link
+                            >Contact</router-link
                         >
                     </button>
                 </div>

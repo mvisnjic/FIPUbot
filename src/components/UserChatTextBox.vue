@@ -1,9 +1,11 @@
 <template>
-    <div class="p-6 w-4/6 m-2 border bg-white rounded-xl">
-        <div class="text-l lg:text-xl text-justify break-words">
+    <div class="p-6 w-4/6 m-2 border bg-blue-400 rounded-2xl">
+        <div class="text-l lg:text-lg text-black text-justify break-words">
             {{ message }}
         </div>
-        <div class="border-t">{{ hour }} : {{ minutes }}</div>
+        <div class="border-t border-sky-500 text-black">
+            {{ hour }} : {{ minutes }}
+        </div>
     </div>
 </template>
 

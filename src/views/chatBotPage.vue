@@ -2,7 +2,7 @@
 import chatComponent from '../components/chatComponent.vue'
 </script>
 <template>
-    <div>
+    <div class="my-auto">
         <chatComponent />
     </div>
 </template>

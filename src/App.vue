@@ -6,10 +6,23 @@ import AppFooter from './components/appFooter.vue'
 </script>
 
 <template>
-    <div class="flex flex-col justify-between h-screen">
-        <AppHeader />
-        <router-view />
-        <AppFooter />
+    <div
+        class="bg-[url('./background.jpg')] bg-cover"
+        :class="{
+            'bg-none':
+                $route.name === 'aboutPage' || $route.name === 'contactPage',
+        }"
+    >
+        <div
+            class="flex flex-col justify-between h-screen w-full backdrop-blur-lg"
+            :class="{
+                'backdrop-blur-none': $route.name === 'indexPage',
+            }"
+        >
+            <AppHeader />
+            <router-view />
+            <AppFooter />
+        </div>
     </div>
 </template>
 
@@ -23,7 +36,7 @@ import AppFooter from './components/appFooter.vue'
     background-position: center;
     background-repeat: no-repeat;
     opacity: 90%;
-    background-size: cover;
-    background-image: url('./background.jpg');
+    /* background-size: cover; */
+    /* background-image: url('./background.jpg'); */
 }
 </style>

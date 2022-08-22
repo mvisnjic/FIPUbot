@@ -6,10 +6,17 @@ import UserChatTextBox from './UserChatTextBox.vue'
 <template>
     <div
         ref="chatbot"
-        class="lg:h-[600px] lg:w-[600px] md:mx-auto md:w-[500px] min-w-[280px] h-[500px] mx-2 border rounded-xl bg-opacity-95 bg-[#6ECFF6] overflow-auto"
+        class="relative flex flex-col lg:h-[650px] lg:w-[600px] md:mx-auto md:w-[500px] min-w-[280px] h-[500px] sm:mx-16 mx-4 border rounded-xl bg-opacity-80 bg-sky-100 overflow-auto"
+        :class="
+            open
+                ? 'flex lg:bg-inherit transform origin-top-right transition duration-300 fade-in-out h-full bg-opacity-90'
+                : ''
+        "
     >
-        <div class="p-4 flex justify-between border-b border-slate-300">
-            <p class="">FIPUbot - ask me anything</p>
+        <div
+            class="absolute px-4 flex justify-between items-center border-b border-slate-300 w-full"
+        >
+            <p class="pt-6 lg:pt-0 text-left">FIPUbot - ask me anything</p>
             <!-- <img src="../assets/hamburgerIcon.svg" alt="" width="30" class="" /> -->
             <div class="lg:hidden flex">
                 <button
@@ -17,7 +24,7 @@ import UserChatTextBox from './UserChatTextBox.vue'
                     @click="toggle"
                 >
                     <svg
-                        class="h-5 w-5 transform transition duration-1000 ease-in-out"
+                        class="absolute h-5 w-5 transform transition duration-1000 ease-in-out"
                         :class="open ? 'hidden' : 'open'"
                         viewBox="0 0 20 20"
                         xmlns="http://www.w3.org/2000/svg"
@@ -27,7 +34,7 @@ import UserChatTextBox from './UserChatTextBox.vue'
                     </svg>
 
                     <svg
-                        class="fill-current h-5 w-5 transition duration-1000 ease-in-out"
+                        class="absolute close fill-current h-5 w-5 transition duration-1000 ease-in-out"
                         :class="open ? 'close' : 'hidden'"
                         height="18px"
                         version="1.1"
@@ -62,15 +69,19 @@ import UserChatTextBox from './UserChatTextBox.vue'
             </div>
             <div
                 class="pt-[20px] lg:pt-0 lg:mb-6 text-l lg:flex lg:text-l font-semibold items-start lg:items-center"
-                :class="open ? 'block ' : 'hidden'"
+                :class="open ? 'block absolute right-0 pr-4 pt-24' : 'hidden'"
             >
                 <div class="lg:flex lg:space-x-12">
                     <div>
                         <button
-                            class="hover:font-bold mb-2 lg:bg-slate-300 lg:rounded-full lg:p-1 lg:place-self-center"
+                            class="flex flex-row hover:font-bold mt-5 lg:bg-slate-300 lg:rounded-2xl lg:p-2 lg:place-self-center"
                             @click="closeMenu() + clearChat()"
                         >
                             Clear chat
+                            <img
+                                src="/src/assets/delete-chat.jpg"
+                                class="w-4 ml-2"
+                            />
                         </button>
                     </div>
                     <!-- <div>
@@ -84,7 +95,7 @@ import UserChatTextBox from './UserChatTextBox.vue'
                 </div>
             </div>
         </div>
-        <div class="flex justify-start">
+        <div class="flex justify-start pt-28">
             <BotChatTextBox :message="welcomeMsg" />
         </div>
         <div v-for="(message, i) of store.messages" :key="i">
@@ -125,7 +136,7 @@ import UserChatTextBox from './UserChatTextBox.vue'
 </template>
 
 <script>
-import axios from 'axios'
+import { getAnswer } from '../services'
 import { store } from '../store.js'
 export default {
     name: 'chatComponent',
@@ -144,41 +155,41 @@ export default {
         toggle() {
             this.open = !this.open
         },
-        sendMessage() {
+        async sendMessage() {
             // function for sending a message
-            axios
-                .get(`http://127.0.0.1:5000/getanswer/${this.message}`)
+            await getAnswer
+                .getMessage(this.message)
                 .then((res) => {
+                    if (this.message.length <= 2) {
+                        alert('Blank or too short message!')
+                        this.message = ''
+                        return
+                    } else {
+                        store.messages.push({
+                            msg: this.message,
+                            author: 'client',
+                        })
+                        this.message = ''
+                    }
                     console.log(res.data)
                     store.messages.push({
                         msg: res.data,
                         author: 'server',
                     })
-                    this.$nextTick(() => {
-                        this.$refs.chatbot.scrollTop =
-                            this.$refs.chatbot.scrollHeight
-                        this.message = ''
-                    })
                 })
-            if (this.message.length <= 2) {
-                alert('Blank or too short message!')
-            } else {
-                store.messages.push({
-                    msg: this.message,
-                    author: 'client',
+                .catch((e) => {
+                    console.error(e)
+                    alert(e)
+                    this.message = ''
                 })
-            }
-
             this.$nextTick(() => {
                 this.$refs.chatbot.scrollTop = this.$refs.chatbot.scrollHeight
-                this.message = ''
             })
             // console.log(this.messages)
         },
         clearChat() {
             // doesn't call function if chat is already cleared.
-            // console.log(this.messages)
-            if (store.messages.length <= 0) {
+            if (store.messages.length < 1) {
                 return 0
             } else {
                 store.messages = []
