@@ -8,5 +8,12 @@
         <div class="text-left md:text-right text-2xl lg:text-3xl">
             made by Matej Visnjic for third year final project.
         </div>
+        <br />
+        <p class="italic">
+            Trenutno komunikacija sa backendom je moguća samo pomoću
+            <a href="http://fipubot.bslm.com.hr" class="underline text-red-500"
+                >HTTP protokola.</a
+            >
+        </p>
     </div>
 </template>

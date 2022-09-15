@@ -1,6 +1,6 @@
 <template>
     <div
-        class="lg:h-[600px] lg:w-[600px] md:mx-auto md:w-[500px] min-w-[250px] h-[500px] mx-2 border rounded-xl p-6 my-auto pt-24"
+        class="lg:h-[600px] lg:w-[600px] md:mx-auto md:w-[500px] min-w-[250px] h-fit mx-2 border rounded-xl p-6 my-auto pt-24"
     >
         <div class="text-3xl lg:text-4xl font-bold mb-4">Contact me</div>
         <div class="text-l lg:text-xl lg:p-6 p-5 grid">

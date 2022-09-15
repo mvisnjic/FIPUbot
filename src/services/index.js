@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const fipubotAPI = axios.create({
-    baseURL: 'http://127.0.0.1:5000',
+    baseURL: import.meta.env.VITE_SERVER,
     timeout: 10000,
 })
 
