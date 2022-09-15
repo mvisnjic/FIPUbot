@@ -54,8 +54,8 @@
                 id="sendBtn"
                 class="bg-sky-700 hover:bg-gray-700 text-white rounded-2xl text-center lg:px-32 md:px-24 px-16 py-2"
                 type="submit"
-                @click.once="sendMail()"
-                :hidden="sendBtnClicked"
+                @click.prevent="sendMail()"
+                :disabled="sendBtnClicked"
             >
                 Send
             </button>
@@ -78,10 +78,10 @@ export default {
     },
     methods: {
         sendMail() {
+            this.sendBtnClicked = true
             sendMail
                 .send(this.fullname, this.email, this.subject, this.message)
                 .then(() => {
-                    this.sendBtnClicked = true
                     this.fullname = ''
                     this.email = ''
                     this.subject = ''

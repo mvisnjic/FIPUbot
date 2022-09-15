@@ -77,7 +77,7 @@
                 <div>
                     <button @click="closeMenu">
                         <router-link to="/chatbot" class="hover:font-semibold"
-                            >ChatBot</router-link
+                            >FIPUbot</router-link
                         >
                     </button>
                 </div>

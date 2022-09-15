@@ -8,6 +8,7 @@ const routes = [
         path: '/',
         name: 'indexPage',
         component: indexPage,
+        meta: { title: 'Welcome | FIPUbot' },
     },
     {
         path: '/chatbot',
@@ -18,16 +19,24 @@ const routes = [
         path: '/contact',
         name: 'contactPage',
         component: contactPage,
+        meta: { title: 'Contact | FIPUbot' },
     },
     {
         path: '/about',
         name: 'aboutPage',
         component: aboutPage,
+        meta: { title: 'About | FIPUbot' },
     },
 ]
+
 const router = createRouter({
     history: createWebHistory(),
     routes,
+})
+
+const defaultTitle = 'FIPUbot'
+router.afterEach((to) => {
+    document.title = to.meta.title || defaultTitle
 })
 
 export default router
