@@ -17,7 +17,6 @@ import UserChatTextBox from '../components/UserChatTextBox.vue'
             class="px-4 flex justify-between items-center border-b border-slate-300 w-full"
         >
             <p class="pt-6 lg:pt-0 text-left">FIPUbot - ask me anything</p>
-            <!-- <img src="../assets/hamburgerIcon.svg" alt="" width="30" class="" /> -->
             <div class="lg:hidden flex">
                 <button
                     class="px-6 py-3 rounded font-extrabold text-white"
@@ -94,6 +93,7 @@ import UserChatTextBox from '../components/UserChatTextBox.vue'
             <div class="flex justify-start">
                 <BotChatTextBox
                     :message="message.msg"
+                    :urls="message.urls"
                     v-if="message.author === 'server'"
                 />
             </div>
@@ -165,9 +165,14 @@ export default {
                         })
                         store.clientMessage = ''
 
-                        console.log(res.data)
+                        if (typeof res.data === 'string') {
+                            //checking for urls in string
+                            var stringUrls =
+                                res.data.match(/\bhttps?:\/\/\S+/gi)
+                        }
                         store.messages.push({
                             msg: res.data,
+                            urls: stringUrls,
                             author: 'server',
                         })
                         this.isActive = false

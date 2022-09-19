@@ -9,7 +9,7 @@
             made by Matej Visnjic for third year final project.
         </div>
         <br />
-        <p class="italic">
+        <p class="italic text-left md:text-right">
             Trenutno komunikacija sa backendom je moguća samo pomoću
             <a href="http://fipubot.bslm.com.hr" class="underline text-red-500"
                 >HTTP protokola.</a
