@@ -1,14 +1,14 @@
 <template>
     <div
-        class="lg:h-[600px] lg:w-[600px] md:mx-auto md:w-[500px] min-w-[250px] h-fit mx-2 border rounded-xl p-6 my-auto pt-24"
+        class="lg:h-[600px] lg:w-[600px] md:mx-auto md:w-[500px] min-w-[250px] h-fit mx-2 border rounded-xl p-6 my-auto"
     >
-        <div class="text-3xl lg:text-4xl font-bold mb-4">Contact me</div>
+        <div class="text-3xl lg:text-4xl font-bold mb-4">Kontaktiraj me</div>
         <div class="text-l lg:text-xl lg:p-6 p-5 grid">
             <input
                 class="border-b-2"
                 type="fullname"
                 autocomplete="fullname"
-                placeholder="Full name..."
+                placeholder="Ime i prezime"
                 required
                 minlength="2"
                 maxlength="25"
@@ -20,7 +20,7 @@
                 class="border-b-2"
                 type="email"
                 autocomplete="email"
-                placeholder="Email..."
+                placeholder="E-mail"
                 required
                 maxlength="31"
                 v-model="email"
@@ -31,7 +31,7 @@
                 class="border-b-2"
                 type="subject"
                 autocomplete="subject"
-                placeholder="Subject"
+                placeholder="Naslov"
                 maxlength="20"
                 required
                 v-model="subject"
@@ -41,7 +41,7 @@
             <textarea
                 class="border-b-2 resize-none"
                 name="message"
-                placeholder="Message..."
+                placeholder="Poruka"
                 required
                 minlength="15"
                 maxlength="500"
@@ -57,7 +57,7 @@
                 @click.prevent="sendMail()"
                 :disabled="sendBtnClicked"
             >
-                Send
+                Šalji
             </button>
         </div>
     </div>
@@ -87,13 +87,13 @@ export default {
                     this.subject = ''
                     this.message = ''
                     alert(
-                        'E-mail sent! Thank you, I will respond you soon.\n :)'
+                        'E-mail poslan! Hvala Vam, Odgovoriti ću u najkraćem mogućem roku.\n :)'
                     )
                 })
                 .catch((e) => {
                     this.sendBtnClicked = false
                     console.error(e)
-                    alert(e, +'\nTry again!')
+                    alert(e, +'\nPokušajte ponovno!')
                 })
         },
     },

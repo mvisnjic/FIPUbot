@@ -16,8 +16,7 @@ import UserChatTextBox from '../components/UserChatTextBox.vue'
         <div
             class="px-4 flex justify-between items-center border-b border-slate-300 w-full"
         >
-            <p class="pt-6 lg:pt-0 text-left">FIPUbot - ask me anything</p>
-            <!-- <img src="../assets/hamburgerIcon.svg" alt="" width="30" class="" /> -->
+            <p class="pt-6 lg:pt-0 text-left">FIPUbot</p>
             <div class="lg:hidden flex">
                 <button
                     class="px-6 py-3 rounded font-extrabold text-white"
@@ -77,7 +76,7 @@ import UserChatTextBox from '../components/UserChatTextBox.vue'
                             class="flex flex-row hover:font-bold mt-5 lg:bg-slate-300 lg:rounded-2xl lg:p-2 lg:place-self-center"
                             @click="closeMenu() + clearChat()"
                         >
-                            Clear chat
+                            Briši razgovor
                             <img
                                 src="/src/assets/delete-chat.jpg"
                                 class="w-4 ml-2"
@@ -94,6 +93,7 @@ import UserChatTextBox from '../components/UserChatTextBox.vue'
             <div class="flex justify-start">
                 <BotChatTextBox
                     :message="message.msg"
+                    :urls="message.urls"
                     v-if="message.author === 'server'"
                 />
             </div>
@@ -111,7 +111,7 @@ import UserChatTextBox from '../components/UserChatTextBox.vue'
                 @keyup.enter.down="sendMessage"
                 maxlength="100"
                 minlength="2"
-                placeholder="Message..."
+                placeholder="Poruka..."
                 class="md: w-3/4 rounded-xl resize-none max-h-[50px] px-2 mt-1"
                 :disabled="isActive"
             ></textarea>
@@ -151,10 +151,10 @@ export default {
         async sendMessage() {
             // function for sending a message
             this.isActive = true
-            if (store.clientMessage.length < 3) {
+            if (store.clientMessage.length <= 3) {
                 store.clientMessage = ''
                 this.isActive = false
-                return alert('Blank or too short message!')
+                return alert('Prazna ili prekratka poruka!')
             } else {
                 await getAnswer
                     .getMessage(store.clientMessage.toLowerCase())
@@ -165,9 +165,14 @@ export default {
                         })
                         store.clientMessage = ''
 
-                        console.log(res.data)
+                        if (typeof res.data === 'string') {
+                            //checking for urls in string
+                            var stringUrls =
+                                res.data.match(/\bhttps?:\/\/\S+/gi)
+                        }
                         store.messages.push({
                             msg: res.data,
+                            urls: stringUrls,
                             author: 'server',
                         })
                         this.isActive = false

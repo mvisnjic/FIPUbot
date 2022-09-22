@@ -2,10 +2,10 @@
     <div
         class="lg:h-[600px] lg:w-[600px] md:mx-auto md:w-[500px] min-w-[280px] h-[500px] mx-2 border rounded-xl overflow-auto p-6 my-auto"
     >
-        <div class="text-3xl lg:text-4xl font-bold mb-2">About</div>
+        <div class="text-3xl lg:text-4xl font-bold mb-2">O projektu</div>
         <div class="text-xl lg:text-2xl text-justify p-6">
             FIPUbot web aplikacija koncipirana je kako bi automatski odgovarala
-            na često postavljenja pitanja studenata sveučilišta Jurja Dobrile u
+            na često postavljenja pitanja studenata Fakulteta informatike u
             Puli.
         </div>
         <div class="text-xl lg:text-2xl text-justify p-6">
@@ -14,7 +14,7 @@
         </div>
         <div class="text-xl lg:text-2xl text-justify p-6">
             Projekt je izrađen u sklopu završnog rada. Projekt izradio: Matej
-            Višnjić
+            Višnjić pod vodstvom mentora: izv. prof. dr. sc.Tihomir Orehovački
         </div>
     </div>
 </template>
