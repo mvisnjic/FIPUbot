@@ -70,28 +70,28 @@
                 <div>
                     <button @click="closeMenu">
                         <router-link to="/" class="hover:font-semibold"
-                            >Home</router-link
+                            >Naslovna</router-link
                         >
                     </button>
                 </div>
                 <div>
                     <button @click="closeMenu">
-                        <router-link to="/chatbot" class="hover:font-semibold"
+                        <router-link to="/fipubot" class="hover:font-semibold"
                             >FIPUbot</router-link
                         >
                     </button>
                 </div>
                 <div>
                     <button @click="closeMenu">
-                        <router-link to="/about" class="hover:font-semibold"
-                            >About</router-link
+                        <router-link to="/oprojektu" class="hover:font-semibold"
+                            >O projektu</router-link
                         >
                     </button>
                 </div>
                 <div>
                     <button @click="closeMenu">
-                        <router-link to="/contact" class="hover:font-bold"
-                            >Contact</router-link
+                        <router-link to="/kontakt" class="hover:font-bold"
+                            >Kontakt</router-link
                         >
                     </button>
                 </div>

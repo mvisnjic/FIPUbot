@@ -3,29 +3,37 @@ import indexPage from '../views/indexPage.vue'
 import chatBotPage from '../views/chatBotPage.vue'
 import aboutPage from '../views/aboutPage.vue'
 import contactPage from '../views/contactPage.vue'
+import notFound from '../views/404.vue'
+
 const routes = [
     {
         path: '/',
         name: 'indexPage',
         component: indexPage,
-        meta: { title: 'Welcome | FIPUbot' },
+        meta: { title: 'Dobro došli | FIPUbot' },
     },
     {
-        path: '/chatbot',
+        path: '/fipubot',
         name: 'chatBotPage',
         component: chatBotPage,
     },
     {
-        path: '/contact',
+        path: '/kontakt',
         name: 'contactPage',
         component: contactPage,
-        meta: { title: 'Contact | FIPUbot' },
+        meta: { title: 'Kontakt | FIPUbot' },
     },
     {
-        path: '/about',
+        path: '/oprojektu',
         name: 'aboutPage',
         component: aboutPage,
-        meta: { title: 'About | FIPUbot' },
+        meta: { title: 'O projektu | FIPUbot' },
+    },
+    {
+        path: '/:pathMatch(.*)*',
+        name: 'NotFound',
+        component: notFound,
+        meta: { title: 'Greška | FIPUbot' },
     },
 ]
 
