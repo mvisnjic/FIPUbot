@@ -22,7 +22,9 @@ Marked with * - I will try to make certain functionalities if it is not too comp
 
 ## Public URL
 
-Public URL for app: *soon*
+Public URL for app: http://fipubot.bslm.com.hr/ 
+
+**works only with HTTP protocol...*
 
 ## Organization
 
