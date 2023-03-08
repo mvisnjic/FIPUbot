@@ -113,10 +113,10 @@ import UserChatTextBox from '../components/UserChatTextBox.vue'
                 minlength="2"
                 placeholder="Poruka..."
                 class="md: w-3/4 rounded-xl resize-none max-h-[50px] px-2 mt-1"
-                :disabled="isActive"
+                disabled
             ></textarea>
 
-            <button @click="sendMessage">
+            <button @click="sendMessage" disabled>
                 <img
                     src="../assets/send-btn.png"
                     alt="send-button"
@@ -137,7 +137,7 @@ export default {
         return {
             open: false,
             welcomeMsg:
-                'Bok ja sam FIPUbot! Tu sam ukoliko imaš pitanja u vezi fakulteta.',
+                'Bok ja sam FIPUbot! Tu sam ukoliko imaš pitanja u vezi fakulteta. Raspberry PI koji je isporučivao odgovore bota je ugašen zbog toga što se raspberry koristi za drugi projekt.',
             isActive: false,
         }
     },

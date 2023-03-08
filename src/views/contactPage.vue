@@ -55,7 +55,7 @@
                 class="bg-sky-700 hover:bg-gray-700 text-white rounded-2xl text-center lg:px-32 md:px-24 px-16 py-2"
                 type="submit"
                 @click.prevent="sendMail()"
-                :disabled="sendBtnClicked"
+                disabled
             >
                 Šalji
             </button>
